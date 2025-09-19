@@ -1,3 +1,6 @@
 body{
     color:white;
 }
+canvas{
+    background:transparent;
+}

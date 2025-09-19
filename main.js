@@ -5,10 +5,11 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/
 
 const scene=new THREE.Scene();
 
+
 const groundGeometry = new THREE.PlaneGeometry(50, 50);
 groundGeometry.rotateX(-Math.PI / 2);
 const groundMaterial=new THREE.MeshStandardMaterial({
-  color:0x555555,
+  color:0x87ceeb,
   side:THREE.DoubleSide,
 });
 
@@ -32,6 +33,10 @@ const spotLight=new THREE.SpotLight(0xffffff,5,100,0.2,1);
 spotLight.position.set(15,30,15);
 spotLight.castShadow=true;
 
+spotLight.shadow.mapSize.width=2048;
+spotLight.shadow.mapSize.height=2048;
+spotLight.shadow.radius=5;
+
 scene.add(spotLight)
 
 
@@ -40,6 +45,7 @@ const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
 
 renderer.setSize( window.innerWidth,window.innerHeight);
 renderer.shadowMap.enabled=true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 
 const controls=new OrbitControls(camera,canvas)
