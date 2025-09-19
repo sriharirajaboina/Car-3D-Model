@@ -25,11 +25,11 @@ const camera=new THREE.PerspectiveCamera(
   1000
 )
 
-camera.position.set(15,15,20);
+camera.position.set(10,10,20);
 
 
 const spotLight=new THREE.SpotLight(0xffffff,5,100,0.2,1);
-spotLight.position.set(20,40,20);
+spotLight.position.set(15,30,15);
 spotLight.castShadow=true;
 
 scene.add(spotLight)
