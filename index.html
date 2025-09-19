@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Three.js ES Module Example</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <!-- ✅ Importmap tells browser where "three" really is -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.module.js",
+      "three/examples/jsm/controls/OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/controls/OrbitControls.js"
+    }
+  }
+  </script>
+
+   <canvas class="threejs"></canvas>
+  <h1>The car 3D Model</h1>
+  <!-- ✅ Load your JS as module -->
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
