@@ -10,7 +10,7 @@ const scene=new THREE.Scene();
 let targetCameraPos = new THREE.Vector3();
 let targetControlPos = new THREE.Vector3();
 let isMovingCamera = false;
-const speed = 0.04; 
+const speed = 0.08; 
 
 
 const groundGeometry = new THREE.PlaneGeometry(50, 50);
@@ -33,7 +33,7 @@ const camera=new THREE.PerspectiveCamera(
   100
 )
 
-camera.position.set(15,50,20);
+camera.position.set(20,20,20);
 
 
 const spotLight=new THREE.SpotLight(0xffffff,10,100,0.2,1);
@@ -134,32 +134,32 @@ function animate(){
 animate();
 
 document.getElementById("topBtn").addEventListener("click",()=>{
-  targetCameraPos.set(5,20,0);
+  targetCameraPos.set(20,20,0);
   targetControlPos.set(0,0,0);
   isMovingCamera=true;
   
 });
 
 document.getElementById("frontBtn").addEventListener("click", () => {
-  targetCameraPos.set(20, 10, 0);
+  targetCameraPos.set(20, 5, 0);
   targetControlPos.set(0, 0, 0);
   isMovingCamera=true;
 });
 
 document.getElementById("leftBtn").addEventListener("click",()=>{
-  targetCameraPos.set(0,10,20)
+  targetCameraPos.set(0,20,20)
   targetControlPos.set(0,0,0)
   isMovingCamera=true;
 });
 
 document.getElementById("rightBtn").addEventListener("click", () => {
-  targetCameraPos.set(0, 10, -25);
+  targetCameraPos.set(0, 20, -20);
   targetControlPos.set(0, 0, 0);
   isMovingCamera=true;
 });
 
 document.getElementById("backBtn").addEventListener("click", () => {
-  targetCameraPos.set(-20, 10, 0);
+  targetCameraPos.set(-20, 20, 0);
   targetControlPos.set(0, 0, 0);
   isMovingCamera=true;
 });
