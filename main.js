@@ -1,10 +1,12 @@
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/loaders/GLTFLoader.js';
+// import { RoomEnvironment } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/environments/RoomEnvironment.js';
+import { EXRLoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/loaders/EXRLoader.js';
+
 
 
 const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x97ceeb)
 
 const groundGeometry = new THREE.PlaneGeometry(50, 50);
 groundGeometry.rotateX(-Math.PI / 2);
@@ -43,14 +45,31 @@ scene.add(spotLight)
 
 const canvas=document.querySelector("canvas.threejs");
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
-
 renderer.setSize( window.innerWidth,window.innerHeight);
+renderer.outputEncoding=THREE.sRGBEncoding;
 renderer.shadowMap.enabled=true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 
 const controls=new OrbitControls(camera,canvas)
+controls.enableDamping=true;
 
+const pmremGenerator=new THREE.PMREMGenerator(renderer);
+pmremGenerator.compileEquirectangularShader();
+
+// const environment = new RoomEnvironment();
+
+// scene.background = new THREE.Color(0x87ceeb);
+// scene.environment = pmremGenerator.fromScene(environment).texture;
+
+
+
+new EXRLoader().load('models/car/textures/symmetrical_garden_02_4k.exr',function(texture){
+  const envMap=pmremGenerator.fromEquirectangular(texture).texture;
+  scene.environment=envMap; 
+  scene.background=envMap;
+  texture.dispose();
+})
 const loader=new GLTFLoader();
 loader.load(
   "./models/car/scene.gltf",
