@@ -1,6 +1,30 @@
 body{
     color:white;
 }
-canvas{
-    background:transparent;
+canvas.threejs{
+  display: block;   
+  top: 0;
+  left: 0;
+  z-index: 0;  
+}
+.button-controls {
+  position: absolute;
+  top: 200px;
+  left: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.button-controls button{
+    border-radius: 100px;
+    border:none;
+    padding:20px;
+    background:yellow;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.button-controls button:hover {
+  background: rgba(255,255,255,0.2);
 }

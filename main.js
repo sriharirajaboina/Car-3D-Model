@@ -53,6 +53,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const controls=new OrbitControls(camera,canvas)
 controls.enableDamping=true;
+controls.target.set(0,0,0);
 
 const pmremGenerator=new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
@@ -70,6 +71,7 @@ scene.environment = pmremGenerator.fromScene(environment).texture;
 //   scene.background=envMap;
 //   texture.dispose();
 // })
+
 const loader=new GLTFLoader();
 loader.load(
   "./models/car/scene.gltf",
@@ -98,5 +100,38 @@ function animate(){
 }
 animate();
 
+document.getElementById("topBtn").addEventListener("click",()=>{
+  camera.position.set(5,20,0);
+  controls.target.set(0,0,0);
+  controls.update();
+});
 
+document.getElementById("frontBtn").addEventListener("click", () => {
+  camera.position.set(20, 5, 0);
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+document.getElementById("leftBtn").addEventListener("click",()=>{
+  camera.position.set(0,5,20)
+  controls.target.set(0,0,0)
+  controls.update();
+});
+
+document.getElementById("rightBtn").addEventListener("click", () => {
+  camera.position.set(0, 5, -20);
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+document.getElementById("backBtn").addEventListener("click", () => {
+  camera.position.set(-20, 10, 0);
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+document.getElementById("wheelBtn").addEventListener("click", () => {
+  camera.position.set(8, 1, 10);  
+  controls.update();
+});
 
