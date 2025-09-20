@@ -4,12 +4,12 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/
 
 
 const scene=new THREE.Scene();
-
+scene.background=new THREE.Color(0x97ceeb)
 
 const groundGeometry = new THREE.PlaneGeometry(50, 50);
 groundGeometry.rotateX(-Math.PI / 2);
 const groundMaterial=new THREE.MeshStandardMaterial({
-  color:0x87ceeb,
+  color:0x97ceeb,
   side:THREE.DoubleSide,
 });
 
@@ -17,7 +17,7 @@ const groundMesh=new THREE.Mesh(groundGeometry,
   groundMaterial
 )
 groundMesh.receiveShadow = true 
-scene.add(groundMesh)
+// scene.add(groundMesh)
 
 const camera=new THREE.PerspectiveCamera(
   45,
@@ -29,7 +29,10 @@ const camera=new THREE.PerspectiveCamera(
 camera.position.set(10,10,20);
 
 
-const spotLight=new THREE.SpotLight(0xffffff,5,100,0.2,1);
+const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+scene.add(ambient);
+
+const spotLight=new THREE.SpotLight(0xffffff,10,100,0.2,1);
 spotLight.position.set(15,30,15);
 spotLight.castShadow=true;
 
@@ -37,7 +40,11 @@ spotLight.shadow.mapSize.width=2048;
 spotLight.shadow.mapSize.height=2048;
 spotLight.shadow.radius=5;
 
+spotLight.angle = Math.PI / 4;   
+spotLight.penumbra = 0.4;
+
 scene.add(spotLight)
+
 
 
 const canvas=document.querySelector("canvas.threejs");
@@ -77,3 +84,6 @@ function animate(){
 
 }
 animate();
+
+
+
