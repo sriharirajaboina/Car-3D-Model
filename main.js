@@ -98,13 +98,13 @@ loader.load(
   }
 );
 
-function moveTowards(current, target, maxDistanceDelta) {
+function moveTowards(current, target, maxDistance) {
   const toVector = new THREE.Vector3().subVectors(target, current);
   const distance = toVector.length();
-  if (distance <= maxDistanceDelta || distance === 0) {
+  if (distance <= maxDistance || distance === 0) {
     return target.clone();
   }
-  return current.clone().add(toVector.normalize().multiplyScalar(maxDistanceDelta));
+  return current.clone().add(toVector.normalize().multiplyScalar(maxDistance));
 }
 
 function animate(){
@@ -147,25 +147,25 @@ document.getElementById("frontBtn").addEventListener("click", () => {
 });
 
 document.getElementById("leftBtn").addEventListener("click",()=>{
-  targetCameraPos.set(0,20,20)
+  targetCameraPos.set(0,10,20)
   targetControlPos.set(0,0,0)
   isMovingCamera=true;
 });
 
 document.getElementById("rightBtn").addEventListener("click", () => {
-  targetCameraPos.set(0, 20, -20);
+  targetCameraPos.set(0, 10, -20);
   targetControlPos.set(0, 0, 0);
   isMovingCamera=true;
 });
 
 document.getElementById("backBtn").addEventListener("click", () => {
-  targetCameraPos.set(-20, 20, 0);
+  targetCameraPos.set(-20,5, 0);
   targetControlPos.set(0, 0, 0);
   isMovingCamera=true;
 });
 
 document.getElementById("wheelBtn").addEventListener("click", () => {
-  targetCameraPos.set(10, 5, 15);  
+  targetCameraPos.set(10, 5, 10);  
   isMovingCamera=true;
 });
 
