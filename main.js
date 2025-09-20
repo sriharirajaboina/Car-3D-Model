@@ -7,6 +7,11 @@ import { EXRLoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/j
 
 
 const scene=new THREE.Scene();
+let targetCameraPos = new THREE.Vector3();
+let targetControlPos = new THREE.Vector3();
+let isMovingCamera = false;
+const speed = 0.04; 
+
 
 const groundGeometry = new THREE.PlaneGeometry(50, 50);
 groundGeometry.rotateX(-Math.PI / 2);
@@ -92,8 +97,36 @@ loader.load(
     console.log("error for loading")
   }
 );
+
+function moveTowards(current, target, maxDistanceDelta) {
+  const toVector = new THREE.Vector3().subVectors(target, current);
+  const distance = toVector.length();
+  if (distance <= maxDistanceDelta || distance === 0) {
+    return target.clone();
+  }
+  return current.clone().add(toVector.normalize().multiplyScalar(maxDistanceDelta));
+}
+
 function animate(){
   requestAnimationFrame(animate)
+
+   if (isMovingCamera) {
+   
+   camera.position.copy(moveTowards(camera.position, targetCameraPos, speed));
+    controls.target.copy(moveTowards(controls.target, targetControlPos, speed));
+
+     if (
+      camera.position.distanceTo(targetCameraPos) < 0.01 &&
+      controls.target.distanceTo(targetControlPos) < 0.01
+    ) {
+      camera.position.copy(targetCameraPos);
+      controls.target.copy(targetControlPos);
+      isMovingCamera = false;
+    }
+
+    controls.update();
+  }
+
   controls.update();
   renderer.render(scene,camera)
 
@@ -101,37 +134,38 @@ function animate(){
 animate();
 
 document.getElementById("topBtn").addEventListener("click",()=>{
-  camera.position.set(5,20,0);
-  controls.target.set(0,0,0);
-  controls.update();
+  targetCameraPos.set(5,20,0);
+  targetControlPos.set(0,0,0);
+  isMovingCamera=true;
+  
 });
 
 document.getElementById("frontBtn").addEventListener("click", () => {
-  camera.position.set(20, 5, 0);
-  controls.target.set(0, 0, 0);
-  controls.update();
+  targetCameraPos.set(20, 10, 0);
+  targetControlPos.set(0, 0, 0);
+  isMovingCamera=true;
 });
 
 document.getElementById("leftBtn").addEventListener("click",()=>{
-  camera.position.set(0,5,20)
-  controls.target.set(0,0,0)
-  controls.update();
+  targetCameraPos.set(0,10,20)
+  targetControlPos.set(0,0,0)
+  isMovingCamera=true;
 });
 
 document.getElementById("rightBtn").addEventListener("click", () => {
-  camera.position.set(0, 5, -20);
-  controls.target.set(0, 0, 0);
-  controls.update();
+  targetCameraPos.set(0, 10, -25);
+  targetControlPos.set(0, 0, 0);
+  isMovingCamera=true;
 });
 
 document.getElementById("backBtn").addEventListener("click", () => {
-  camera.position.set(-20, 10, 0);
-  controls.target.set(0, 0, 0);
-  controls.update();
+  targetCameraPos.set(-20, 10, 0);
+  targetControlPos.set(0, 0, 0);
+  isMovingCamera=true;
 });
 
 document.getElementById("wheelBtn").addEventListener("click", () => {
-  camera.position.set(8, 1, 10);  
-  controls.update();
+  targetCameraPos.set(10, 5, 15);  
+  isMovingCamera=true;
 });
 
