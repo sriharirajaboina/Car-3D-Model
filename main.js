@@ -43,6 +43,14 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+window.addEventListener("resize",()=>{
+
+  camera.aspect=window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+})
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
