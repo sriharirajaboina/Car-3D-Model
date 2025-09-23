@@ -28,3 +28,56 @@ canvas.threejs{
 .button-controls button:hover {
   background: rgba(255,255,255,0.2);
 }
+
+    .palette {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      display: flex;
+      gap: 8px;
+    }
+    .palette button {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      cursor: pointer;
+    }
+.color{
+  position:absolute;
+   top: 150px;
+  right: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.color button{
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  border:none;
+  cursor:pointer;
+}
+#green-circle{
+  background:green;
+}
+#red-circle{
+  background-color: red;
+}
+#white-circle{
+  background-color: white;
+}
+#yellow-circle{
+  background-color: yellow;
+}
+#orange-circle{
+  background-color: orange;
+}
+#blue-circle{
+  background-color: blue;
+}
+#black-circle{
+  background-color: black;
+}
+#gray-circle{
+  background-color: gray;
+}
